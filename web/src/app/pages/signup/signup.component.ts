@@ -9,11 +9,11 @@ import { AuthService } from '../../core/auth.service';
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink],
   template: `
-    <h2>Signup</h2>
+    <h2>Criar conta</h2>
     <form (ngSubmit)="onSubmit()" #f="ngForm">
       <label>Name <input name="name" [(ngModel)]="name" required /></label><br />
       <label>Email <input name="email" [(ngModel)]="email" type="email" required /></label><br />
-      <label>Password <input name="password" [(ngModel)]="password" type="password" required minlength="6" /></label><br />
+      <label>Senha <input name="password" [(ngModel)]="password" type="password" required minlength="6" /></label><br />
       <button [disabled]="f.invalid">Criar conta</button>
     </form>
     <p *ngIf="msg" style="color:green">{{msg}}</p>

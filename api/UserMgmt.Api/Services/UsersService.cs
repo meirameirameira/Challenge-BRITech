@@ -40,7 +40,7 @@ public class UsersService : IUsersService
     {
         // email único
         var exists = await _db.Users.AnyAsync(x => x.Email == req.Email);
-        if (exists) throw new InvalidOperationException("Email already registered.");
+        if (exists) throw new InvalidOperationException("Email já registrado.");
 
         var user = new User
         {
@@ -71,11 +71,10 @@ public class UsersService : IUsersService
         var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == id);
         if (user == null) return null;
 
-        // se email mudar, garantir unicidade
         if (!string.Equals(user.Email, req.Email, StringComparison.OrdinalIgnoreCase))
         {
             var exists = await _db.Users.AnyAsync(x => x.Email == req.Email && x.Id != id);
-            if (exists) throw new InvalidOperationException("Email already in use by another user.");
+            if (exists) throw new InvalidOperationException("Email já registrado.");
         }
 
         user.Name = req.Name;

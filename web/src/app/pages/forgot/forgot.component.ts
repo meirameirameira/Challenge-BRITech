@@ -9,7 +9,7 @@ import { AuthService } from '../../core/auth.service';
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink],
   template: `
-    <h2>Forgot password</h2>
+    <h2>Esqueci minha senha</h2>
     <form (ngSubmit)="onSubmit()" #f="ngForm">
       <label>Email <input name="email" [(ngModel)]="email" type="email" required /></label><br />
       <button [disabled]="f.invalid">Enviar</button>
@@ -17,7 +17,7 @@ import { AuthService } from '../../core/auth.service';
     <p *ngIf="msg" style="color:green">{{msg}}</p>
     <p *ngIf="devToken" style="font-family:monospace">devToken: {{devToken}}</p>
     <p *ngIf="error" style="color:red">{{error}}</p>
-    <p><a routerLink="/login">Voltar ao login</a></p>
+    <p><a routerLink="/reset">Redefinir senha</a></p>
   `
 })
 export class ForgotComponent {

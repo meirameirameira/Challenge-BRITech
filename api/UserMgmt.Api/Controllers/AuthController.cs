@@ -60,8 +60,7 @@ public class AuthController : ControllerBase
         if (!ModelState.IsValid) return ValidationProblem(ModelState);
 
         var token = await _svc.ForgotAsync(req);
-        // Em produção devolver 202 sem token.
-        return Accepted(new { message = "If the email exists, a reset token has been issued.", devToken = token });
+        return Accepted(new { message = "No projeto final este Token seria enviado no email registrado.", devToken = token });
     }
 
     [HttpPost("Resetpwd")]
@@ -71,8 +70,8 @@ public class AuthController : ControllerBase
         if (!ModelState.IsValid) return ValidationProblem(ModelState);
 
         var ok = await _svc.ResetpwdAsync(req);
-        if (!ok) return BadRequest(new { message = "Invalid or expired token." });
+        if (!ok) return BadRequest(new { message = "Token expirado ou inválido." });
 
-        return Ok(new { message = "Password updated successfully." });
+        return Ok(new { message = "Senha redefinida com sucesso." });
     }
 }

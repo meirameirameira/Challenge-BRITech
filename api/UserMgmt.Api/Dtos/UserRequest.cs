@@ -10,7 +10,6 @@ public class UserRequest
     [Required, EmailAddress]
     public string Email { get; set; } = default!;
 
-    // Para AddUser, a senha é necessária
     [Required, MinLength(6)]
     public string Password { get; set; } = default!;
 

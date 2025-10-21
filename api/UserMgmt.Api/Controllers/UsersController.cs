@@ -7,14 +7,13 @@ namespace UserMgmt.Api.Controllers;
 
 [ApiController]
 [Route("users")]
-[Authorize] // exige token para todos os endpoints abaixo
+[Authorize]
 public class UsersController : ControllerBase
 {
     private readonly IUsersService _svc;
 
     public UsersController(IUsersService svc) => _svc = svc;
 
-    // GET /users/ListUsers
     [HttpGet("ListUsers")]
     public async Task<IActionResult> ListUsers()
     {
@@ -22,7 +21,6 @@ public class UsersController : ControllerBase
         return Ok(list);
     }
 
-    // POST /users/AddUser
     [HttpPost("AddUser")]
     public async Task<IActionResult> AddUser([FromBody] UserRequest req)
     {
@@ -39,7 +37,6 @@ public class UsersController : ControllerBase
         }
     }
 
-    // PUT /users/EditUsers/{id}
     [HttpPut("EditUsers/{id:int}")]
     public async Task<IActionResult> EditUsers([FromRoute] int id, [FromBody] UserUpdateRequest req)
     {
@@ -48,7 +45,7 @@ public class UsersController : ControllerBase
         try
         {
             var updated = await _svc.EditAsync(id, req);
-            if (updated == null) return NotFound(new { message = "User not found." });
+            if (updated == null) return NotFound(new { message = "Usuário não encontrado." });
             return Ok(updated);
         }
         catch (InvalidOperationException ex)
@@ -57,12 +54,11 @@ public class UsersController : ControllerBase
         }
     }
 
-    // DELETE /users/RemoveUser/{id}
     [HttpDelete("RemoveUser/{id:int}")]
     public async Task<IActionResult> RemoveUser([FromRoute] int id)
     {
         var ok = await _svc.RemoveAsync(id);
-        if (!ok) return NotFound(new { message = "User not found." });
+        if (!ok) return NotFound(new { message = "Usuário não encontrado." });
         return NoContent();
     }
 }

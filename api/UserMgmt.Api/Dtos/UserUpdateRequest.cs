@@ -10,7 +10,7 @@ public class UserUpdateRequest
     [Required, EmailAddress]
     public string Email { get; set; } = default!;
 
-    public string? Password { get; set; }   // opcional
+    public string? Password { get; set; }
     public string? Role { get; set; } = "user";
     public bool IsActive { get; set; } = true;
 }

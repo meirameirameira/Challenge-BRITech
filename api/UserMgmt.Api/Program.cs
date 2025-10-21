@@ -26,7 +26,7 @@ builder.Services
     })
     .AddJwtBearer(o =>
     {
-        o.RequireHttpsMetadata = false; // dev
+        o.RequireHttpsMetadata = false;
         o.SaveToken = true;
         o.TokenValidationParameters = new()
         {
@@ -45,7 +45,15 @@ builder.Services.AddScoped<IJwtToken, JwtToken>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUsersService, UsersService>();
 
-// Swagger + Controllers
+var myCors = "_myCors";
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy(myCors, p => p
+        .WithOrigins("http://localhost:4200")
+        .AllowAnyHeader()
+        .AllowAnyMethod());
+});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -71,6 +79,7 @@ builder.Services.AddSwaggerGen(c =>
         { jwtSecurityScheme, Array.Empty<string>() }
     });
 });
+
 builder.Services.AddControllers();
 
 var app = builder.Build();
@@ -83,10 +92,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors(myCors);
+
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
 
 app.Run();
-

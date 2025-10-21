@@ -28,7 +28,7 @@ public class AuthService : IAuthService
     public async Task<User> SignupAsync(SignupRequest req)
     {
         var exists = await _db.Users.AnyAsync(u => u.Email == req.Email);
-        if (exists) throw new InvalidOperationException("Email already registered.");
+        if (exists) throw new InvalidOperationException("Email já registrado.");
 
         var user = new User
         {
@@ -48,9 +48,9 @@ public class AuthService : IAuthService
     {
         var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == req.Email);
         if (user == null || !PasswordHasher.Verify(req.Password, user.PasswordHash))
-            throw new UnauthorizedAccessException("Invalid credentials.");
+            throw new UnauthorizedAccessException("Email ou senha inválido.");
 
-        if (!user.IsActive) throw new UnauthorizedAccessException("User disabled.");
+        if (!user.IsActive) throw new UnauthorizedAccessException("Usuário desativado.");
 
         var (token, exp) = _jwt.Create(user);
         return (user, token, exp);
@@ -59,7 +59,7 @@ public class AuthService : IAuthService
     public async Task<string?> ForgotAsync(ForgotRequest req)
     {
         var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == req.Email);
-        if (user == null) return null; // não revela existência do email
+        if (user == null) return null;
 
         var token = Guid.NewGuid().ToString("N");
         var prt = new PasswordResetToken
@@ -70,8 +70,6 @@ public class AuthService : IAuthService
         };
         _db.PasswordResetTokens.Add(prt);
         await _db.SaveChangesAsync();
-
-        // Em DEV: “simular” envio por e-mail retornando o token (ou logando)
         Console.WriteLine($"[DEV] Password reset token for {user.Email}: {token}");
         return token;
     }
@@ -82,10 +80,10 @@ public class AuthService : IAuthService
         .Include(x => x.User)
         .FirstOrDefaultAsync(x => x.Token == req.Token);
 
-    if (prt == null) return false;                     // token inexistente
-    if (prt.UsedAt != null) return false;              // já usado
-    if (prt.ExpiresAt < DateTime.UtcNow) return false; // expirado
-    if (prt.User == null) return false;                // usuário removido
+    if (prt == null) return false;
+    if (prt.UsedAt != null) return false;
+    if (prt.ExpiresAt < DateTime.UtcNow) return false;
+    if (prt.User == null) return false;
 
     prt.User.PasswordHash = PasswordHasher.Hash(req.NewPassword);
     prt.UsedAt = DateTime.UtcNow;

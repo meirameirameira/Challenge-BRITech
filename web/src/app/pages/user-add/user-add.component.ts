@@ -9,11 +9,11 @@ import { UsersService } from '../../core/users.service';
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink],
   template: `
-    <h2>Add User</h2>
+    <h2>Adicionar Usuário</h2>
     <form (ngSubmit)="onSubmit()" #f="ngForm">
-      <label>Name <input name="name" [(ngModel)]="name" required /></label><br />
+      <label>Nome <input name="name" [(ngModel)]="name" required /></label><br />
       <label>Email <input name="email" [(ngModel)]="email" type="email" required /></label><br />
-      <label>Password <input name="password" [(ngModel)]="password" type="password" required minlength="6" /></label><br />
+      <label>Senha <input name="password" [(ngModel)]="password" type="password" required minlength="6" /></label><br />
       <label>Role <input name="role" [(ngModel)]="role" /></label><br />
       <label>Active <input name="isActive" type="checkbox" [(ngModel)]="isActive" /></label><br />
       <button [disabled]="f.invalid">Salvar</button>

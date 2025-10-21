@@ -9,5 +9,5 @@ public class PasswordResetToken
     public DateTime ExpiresAt { get; set; }
     public DateTime? UsedAt { get; set; }
 
-    public User? User { get; set; }   // navegação
+    public User? User { get; set; }
 }

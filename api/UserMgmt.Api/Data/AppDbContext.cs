@@ -14,7 +14,6 @@ public class AppDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        // User
         modelBuilder.Entity<User>()
             .HasIndex(u => u.Email)
             .IsUnique();
@@ -29,7 +28,6 @@ public class AppDbContext : DbContext
             .HasMaxLength(160)
             .IsRequired();
 
-        // PasswordResetToken
         modelBuilder.Entity<PasswordResetToken>()
             .HasOne(prt => prt.User)
             .WithMany()

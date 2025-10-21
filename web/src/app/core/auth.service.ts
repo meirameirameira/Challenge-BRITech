@@ -27,4 +27,12 @@ export class AuthService {
   getToken() { return localStorage.getItem('auth_token'); }
   logout() { localStorage.removeItem('auth_token'); }
   isAuthenticated() { return !!this.getToken(); }
+
+  resetpwd(token: string, newPassword: string) {
+    return this.http.post<{ message: string }>(
+      `${this.base}/auth/Resetpwd`,
+      { token, newPassword }
+      );
+  }
+
 }

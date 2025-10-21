@@ -12,7 +12,7 @@ import { AuthService } from '../../core/auth.service';
     <h2>Login</h2>
     <form (ngSubmit)="onSubmit()" #f="ngForm">
       <label>Email <input name="email" [(ngModel)]="email" type="email" required /></label><br />
-      <label>Password <input name="password" [(ngModel)]="password" type="password" required /></label><br />
+      <label>Senha <input name="password" [(ngModel)]="password" type="password" required /></label><br />
       <button [disabled]="f.invalid">Entrar</button>
     </form>
     <p *ngIf="error" style="color:red">{{error}}</p>

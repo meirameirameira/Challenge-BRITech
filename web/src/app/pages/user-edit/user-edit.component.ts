@@ -9,13 +9,12 @@ import { UsersService, UserDTO } from '../../core/users.service';
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink],
   template: `
-    <h2>Edit User #{{id}}</h2>
+    <h2>Editar Usuário #{{id}}</h2>
     <form *ngIf="loaded" (ngSubmit)="onSubmit()" #f="ngForm">
-      <label>Name <input name="name" [(ngModel)]="name" required /></label><br />
+      <label>Nome <input name="name" [(ngModel)]="name" required /></label><br />
       <label>Email <input name="email" [(ngModel)]="email" type="email" required /></label><br />
-      <label>Password (opcional) <input name="password" [(ngModel)]="password" type="password" /></label><br />
       <label>Role <input name="role" [(ngModel)]="role" /></label><br />
-      <label>Active <input name="isActive" type="checkbox" [(ngModel)]="isActive" /></label><br />
+      <label>Atividade <input name="isActive" type="checkbox" [(ngModel)]="isActive" /></label><br />
       <button [disabled]="f.invalid">Salvar</button>
       <a routerLink="/users" style="margin-left:8px">Cancelar</a>
     </form>

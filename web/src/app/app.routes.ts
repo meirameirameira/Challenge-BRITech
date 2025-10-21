@@ -6,12 +6,14 @@ import { UsersListComponent } from './pages/users-list/user-list.component';
 import { UserAddComponent } from './pages/user-add/user-add.component';
 import { UserEditComponent } from './pages/user-edit/user-edit.component';
 import { AuthGuard } from './core/auth-guard';
+import { ResetComponent } from './pages/reset/reset.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
   { path: 'login',  component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'forgot', component: ForgotComponent },
+  { path: 'reset',  component: ResetComponent },
   {
     path: 'users',
     canActivate: [AuthGuard],

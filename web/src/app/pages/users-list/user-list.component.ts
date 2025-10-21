@@ -8,13 +8,13 @@ import { UsersService, UserDTO } from '../../core/users.service';
   standalone: true,
   imports: [CommonModule, RouterLink],
   template: `
-    <h2>Users</h2>
+    <h2>Usuários</h2>
     <div style="margin:8px 0;">
-      <a routerLink="/users/add">+ Add User</a>
+      <a routerLink="/users/add">+ Adicionar Usuário</a>
       <button (click)="load()" style="margin-left:8px">Recarregar</button>
     </div>
     <table border="1" cellpadding="6">
-      <thead><tr><th>Id</th><th>Name</th><th>Email</th><th>Role</th><th>Active</th><th>Ações</th></tr></thead>
+      <thead><tr><th>Id</th><th>Nome</th><th>Email</th><th>Role</th><th>Atividade</th><th>Criado em:</th><th>Ações</th></tr></thead>
       <tbody>
         <tr *ngFor="let u of users">
           <td>{{u.id}}</td>
@@ -22,9 +22,10 @@ import { UsersService, UserDTO } from '../../core/users.service';
           <td>{{u.email}}</td>
           <td>{{u.role}}</td>
           <td>{{u.isActive}}</td>
+          <td>{{ u.createdAt | date:'dd-MM-yyyy' }}</td>
           <td>
-            <a [routerLink]="['/users/edit', u.id]">Edit</a>
-            <button (click)="remove(u.id)" style="margin-left:8px">Remove</button>
+            <a [routerLink]="['/users/edit', u.id]">Editar</a>
+            <button (click)="remove(u.id)" style="margin-left:8px">Remover</button>
           </td>
         </tr>
       </tbody>
