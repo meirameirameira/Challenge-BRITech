@@ -11,8 +11,8 @@ import { AuthService } from '../../core/auth.service';
   template: `
     <h2>Criar conta</h2>
     <form (ngSubmit)="onSubmit()" #f="ngForm">
-      <label>Name <input name="name" [(ngModel)]="name" required /></label><br />
-      <label>Email <input name="email" [(ngModel)]="email" type="email" required /></label><br />
+      <label>Name <input name="name" [(ngModel)]="name" required /></label>
+      <label>Email <input name="email" [(ngModel)]="email" type="email" required /></label>
       <label>Senha <input name="password" [(ngModel)]="password" type="password" required minlength="6" /></label><br />
       <button [disabled]="f.invalid">Criar conta</button>
     </form>

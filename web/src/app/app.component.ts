@@ -7,16 +7,23 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule, RouterOutlet, RouterLink],
   template: `
-    <header style="padding:12px; border-bottom:1px solid #eee; display:flex; gap:12px; align-items:center;">
-      <strong>BRITech</strong>
-      <a routerLink="/login" *ngIf="!isAuth()">Login</a>
-      <a routerLink="/signup" *ngIf="!isAuth()">Criar conta</a>
-      <a routerLink="/forgot" *ngIf="!isAuth()">Esqueci minha senha</a>
-      <a routerLink="/reset" *ngIf="!isAuth()">Redefinir senha</a>
-      <a routerLink="/users" *ngIf="isAuth()">Usuários</a>
-      <span style="margin-left:auto" *ngIf="isAuth()">
+    <header class="header">
+      <a routerLink="/" class="brand">
+        <img src="assets/logo-britech-c-h.svg" alt="BRITech" class="logo" />
+      </a>
+
+      <nav class="nav-center">
+        <a routerLink="/login" *ngIf="!isAuth()">Login</a>
+        <a routerLink="/signup" *ngIf="!isAuth()">Criar Conta</a>
+        <a routerLink="/forgot" *ngIf="!isAuth()">Esqueci minha senha</a>
+        <a routerLink="/reset"  *ngIf="!isAuth()">Redefinir senha</a>
+
+        <a routerLink="/users" *ngIf="isAuth()">Users</a>
+      </nav>
+
+      <div class="nav-right" *ngIf="isAuth()">
         <button (click)="logout()">Logout</button>
-      </span>
+      </div>
     </header>
     <main style="padding:16px"><router-outlet></router-outlet></main>
   `

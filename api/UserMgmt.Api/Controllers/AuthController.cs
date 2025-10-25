@@ -60,7 +60,7 @@ public class AuthController : ControllerBase
         if (!ModelState.IsValid) return ValidationProblem(ModelState);
 
         var token = await _svc.ForgotAsync(req);
-        return Accepted(new { message = "No projeto final este Token seria enviado no email registrado.", devToken = token });
+        return Accepted(new { message = "No projeto final, se o email existir, este Token seria enviado no email registrado.", devToken = token });
     }
 
     [HttpPost("Resetpwd")]

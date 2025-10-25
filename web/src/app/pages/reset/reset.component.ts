@@ -13,14 +13,13 @@ import { AuthService } from '../../core/auth.service';
     <form (ngSubmit)="onSubmit()" #f="ngForm">
       <label>Token
         <input name="token" [(ngModel)]="token" required />
-      </label><br />
+      </label>
       <label>Nova senha
         <input name="newPassword" type="password" [(ngModel)]="newPassword" required minlength="6" />
       </label><br />
       <button [disabled]="f.invalid || loading">Trocar senha</button>
-      <a routerLink="/login" style="margin-left:8px">Voltar ao login</a>
     </form>
-
+    <p><a routerLink="/login" style="margin-left:8px">Voltar ao login</a></p>
     <p *ngIf="msg" style="color:green">{{ msg }}</p>
     <p *ngIf="error" style="color:red">{{ error }}</p>
   `

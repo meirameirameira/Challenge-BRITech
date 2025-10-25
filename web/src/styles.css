@@ -1,1 +1,157 @@
-/* You can add global styles to this file, and also import other style files */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--britech-escuro);
+  background: #f8fafc;
+  line-height: 1.5;
+}
+
+:root{
+  --britech: #2596be;
+  --britech-escuro: #052b3f;
+  --britech-roxo: #7d228e;
+  --britech-vermelho: #c90707;
+  --muted: #6b7280;
+  --surface: #ffffff;
+  --radius: 12px;
+  --shadow: 0 6px 20px rgba(0,0,0,.05);
+  --focus: 0 0 0 3px rgba(37,99,235,.35);
+}
+
+h1,h2,h3 { margin: 0 0 12px; }
+h2 { font-size: 20px; }
+
+a { color: var(--britech-escuro); text-decoration: none; }
+a:hover { color: var(--britech-roxo); text-decoration: underline; }
+
+.container {
+  max-width: 980px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--britech-escuro);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+}
+
+.header{
+  position: relative;
+  padding: 12px 120px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.britech{ justify-self:start; display:flex; align-items:center; text-decoration:none; }
+.logo{ height:28px; width:auto; display:block; }
+
+.nav-center{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  white-space: nowrap;
+  text-align: center;
+}
+.nav-center a{
+  font-weight: 600;
+  color: var(--britech-escuro);
+  text-decoration: none;
+}
+.nav-center a:hover{ color: var(--britech-roxo); text-decoration: underline; }
+
+.nav-right{ display:flex; align-items:center; gap:8px; }
+
+main h2, main p{
+    text-align: center;
+}
+
+main form {
+  max-width: 420px;
+  margin: 24px auto;
+  display: grid;
+  gap: 12px;
+}
+
+main form .field { display: grid; gap: 6px; }
+
+main form label { font-weight: 600; color: var(--text); display: block; margin-bottom: 6px; }
+
+input, select, textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--britech-escuro);
+  border-radius: 10px;
+  background: #fff;
+  outline: none;
+}
+input:focus, select:focus, textarea:focus {
+  box-shadow: var(--focus);
+  border-color: var(--britech-escuro);
+}
+
+main form button,
+main form [type="submit"] {
+  background: var(--britech);
+  color: #fff;
+  font-weight: 600;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 0;
+  cursor: pointer;
+  min-width: 180px;
+  justify-self: center;
+}
+main form button:hover,
+main form [type="submit"]:hover { background: var(--britech-roxo); }
+main form button:disabled,
+main form [type="submit"]:disabled {cursor: not-allowed; }
+
+main form + .links,
+.links { margin-top: 12px; font-size: .95rem; }
+
+.error { color: var(--britech-vermelho); margin-top: 8px; }
+
+table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 12px; overflow: hidden; }
+th, td { padding: 10px 12px; border-bottom: 1px solid var(--britech-escuro); text-align: left; }
+thead th { color: #ffffff; background: var(--britech-escuro); font-weight: 700; text-align: left }
+.table-centro {text-align: center;}
+
+table button{
+    background-color: var(--britech);
+}
+table button:hover{
+    background-color: var(--britech-vermelho);
+}
+
+.row { display: flex; gap: 8px; align-items: center; }
+.space-between { display: flex; justify-content: space-between; align-items: center; }
+.mt-2{ margin-top: 8px; } .mt-3{ margin-top: 12px; } .mt-4{ margin-top: 16px; }
+
+button {
+  appearance: none;
+  background: var(--britech-escuro);
+  color: #fff;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 0;
+  cursor: pointer;
+  line-height: 1;
+  box-shadow: var(--shadow);
+}
+
+button:hover { background: var(--britech-roxo); }
+button:focus-visible { outline: none; box-shadow: var(--focus); }
+
+header button { margin-left: 8px; }

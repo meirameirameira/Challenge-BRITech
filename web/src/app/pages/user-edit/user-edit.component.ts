@@ -11,15 +11,15 @@ import { UsersService, UserDTO } from '../../core/users.service';
   template: `
     <h2>Editar Usuário #{{id}}</h2>
     <form *ngIf="loaded" (ngSubmit)="onSubmit()" #f="ngForm">
-      <label>Nome <input name="name" [(ngModel)]="name" required /></label><br />
-      <label>Email <input name="email" [(ngModel)]="email" type="email" required /></label><br />
-      <label>Role <input name="role" [(ngModel)]="role" /></label><br />
+      <label>Nome <input name="name" [(ngModel)]="name" required /></label>
+      <label>Email <input name="email" [(ngModel)]="email" type="email" required /></label>
+      <label>Role <input name="role" [(ngModel)]="role" /></label>
       <label>Atividade <input name="isActive" type="checkbox" [(ngModel)]="isActive" /></label><br />
       <button [disabled]="f.invalid">Salvar</button>
-      <a routerLink="/users" style="margin-left:8px">Cancelar</a>
+      <a routerLink="/users" class="cancelar" style="margin-left:8px; display: block; text-align: center; margin-top: 8px; font-weight: 600;">Cancelar</a>
     </form>
     <p *ngIf="error" style="color:red">{{error}}</p>
-  `
+    `
 })
 export class UserEditComponent {
   id!: number; loaded=false; error='';
