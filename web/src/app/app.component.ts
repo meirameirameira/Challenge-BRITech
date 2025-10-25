@@ -13,9 +13,9 @@ import { CommonModule } from '@angular/common';
       </a>
 
       <nav class="nav-center">
-        <a routerLink="/login" *ngIf="!isAuth()">Login</a>
-        <a routerLink="/signup" *ngIf="!isAuth()">Criar Conta</a>
-        <a routerLink="/forgot" *ngIf="!isAuth()">Esqueci minha senha</a>
+        <a routerLink="/login" *ngIf="!isAuth()">Login</a> ·
+        <a routerLink="/signup" *ngIf="!isAuth()">Criar Conta</a> ·
+        <a routerLink="/forgot" *ngIf="!isAuth()">Esqueci minha senha</a> ·
         <a routerLink="/reset"  *ngIf="!isAuth()">Redefinir senha</a>
 
         <a routerLink="/users" *ngIf="isAuth()">Users</a>
