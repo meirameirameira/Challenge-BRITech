@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\Documents\\GitHub\\Challenge-BRITech\\api\\UserMgmt.Api\\UserMgmt.Api.csproj": {}
+    "C:\\Users\\User\\Documents\\GitHub\\Challenge-BRITech\\api\\UserMgmt.api\\UserMgmt.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\Documents\\GitHub\\Challenge-BRITech\\api\\UserMgmt.Api\\UserMgmt.Api.csproj": {
+    "C:\\Users\\User\\Documents\\GitHub\\Challenge-BRITech\\api\\UserMgmt.api\\UserMgmt.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Documents\\GitHub\\Challenge-BRITech\\api\\UserMgmt.Api\\UserMgmt.Api.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Documents\\GitHub\\Challenge-BRITech\\api\\UserMgmt.api\\UserMgmt.Api.csproj",
         "projectName": "UserMgmt.Api",
-        "projectPath": "C:\\Users\\User\\Documents\\GitHub\\Challenge-BRITech\\api\\UserMgmt.Api\\UserMgmt.Api.csproj",
+        "projectPath": "C:\\Users\\User\\Documents\\GitHub\\Challenge-BRITech\\api\\UserMgmt.api\\UserMgmt.Api.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Documents\\GitHub\\Challenge-BRITech\\api\\UserMgmt.Api\\obj\\",
+        "outputPath": "C:\\Users\\User\\Documents\\GitHub\\Challenge-BRITech\\api\\UserMgmt.api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",

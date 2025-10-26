@@ -1,66 +1,240 @@
-# 🚀 Desafio Técnico – Sistema de Gestão de Usuários
+# BRITech Challenge — User Management System
 
-## 📌 Objetivo
-Construir um pequeno sistema de **gestão de usuários** com autenticação e CRUD, seguindo boas práticas de desenvolvimento, versionamento e documentação.
+Sistema simples de **gestão de usuários** com autenticação **JWT** e **CRUD**, documentado com **Swagger** e consumido por um frontend em **Angular**.
 
----
+## Stack
 
-## 📋 Funcionalidades Esperadas
-1. **Tela de Cadastro (Sign up)**  
-2. **Tela de Login** com fluxo de **"Esqueci minha senha"**  
-3. **Área logada**
-   1. **Lista de usuários cadastrados**
-   2. **Criação de novo usuário**
-   3. **Edição de usuário existente**
-   4. **Remoção de usuários**
-   5. **Funcionalidade de Logout**  
-
----
-
-## 🛠️ Sugestão de Stack (não obrigatória)
-- **Frontend**: Angular ou Aurelia.io  
-- **Backend**: .NET Core (C#)  
-- **Banco de Dados**: SQL Server  
+- **Backend**: ASP.NET Core (.NET 8), EF Core, SQL Server, JWT (Bearer), Swagger
+- **Frontend**: Angular 18 (standalone), Router, HttpClient + Interceptor
+- **Banco**: SQL Server (local/Container)
 - **APIs**: REST
 
-> ⚠️ Você pode escolher outra STACK de tecnologia caso queira, porém deixe isso claro no README. (Isso não afeta sua avaliação)
+---
+
+## Estrutura do Repositório
+
+```
+.
+├─ api/
+│  └─ UserMgmt.Api/
+│     ├─ Controllers/          # AuthController, UsersController
+│     ├─ Data/                 # AppDbContext, Migrations
+│     ├─ Dtos/                 # LoginRequest, SignupRequest, ...
+│     ├─ Models/               # User, PasswordResetToken
+│     ├─ Security/             # JwtOptions, JwtToken
+│     ├─ Services/             # AuthService, UsersService
+│     ├─ Properties/           # launchSettings.json
+│     ├─ appsettings.json
+│     └─ Program.cs
+└─ web/                        # Frontend Angular
+   ├─ src/
+   │  ├─ app/
+   │  │  ├─ app.component.ts
+   │  │  ├─ app.routes.ts
+   │  │  └─ core/              # auth.service.ts, users.service.ts, ...
+   │  │     └─ ...
+   │  ├─ environments/
+   │  │  ├─ environment.ts
+   │  │  └─ environment.prod.ts
+   │  ├─ styles.css
+   │  └─ index.html
+   ├─ angular.json
+   └─ package.json
+```
 
 ---
 
-## ✅ Diferenciais
-- **Swagger/OpenAPI**  
-- **Testes Unitários e Crossbrowser**
-- **Apis em RESTful**
-- **Documentação no README.MD**
+## Pré-requisitos
+
+- **.NET SDK 8+**
+- **Angular CLI** `npm i -g @angular/cli`
+- **SQL Server** (local)
+- **dotnet-ef** (migrations):
 
 ---
 
-## 📊 Critérios de Avaliação
-- O Projeto deve funcionar em localhost, então é importante deixar claro todos pré requisitos de instalação para fazer o projeto funcionar e quais comandos necessários.
-- Avaliaremos o codigo que foi feito, todos os itens que estão apontados aqui como "esperados" serão tratados como checklist e testados.
-- Os itens diferenciais serão levados em consideração também.
-- Seus commits, padrão de branch e etc, também serão observados.
-- Teremos uma reunião ao fim do desafio para analisar em conjunto o código do projeto e tirar duvidas sobre o codigo.
+## Configuração do Backend
+
+### 1) `appsettings.json`
+
+No diretório `api/UserMgmt.Api`, ajuste **conexão** e **JWT**:
+
+```json
+{
+  "ConnectionStrings": {
+    "Default": "Server=localhost;Database=UserMgmt;Trusted_Connection=True;TrustServerCertificate=True"
+  },
+  "Jwt": {
+    "Issuer": "UserMgmt",
+    "Audience": "UserMgmtAudience",
+    "Key": "troque-por-uma-chave-segura-de-32+caracteres"
+  },
+  "Logging": { "LogLevel": { "Default": "Information" } },
+  "AllowedHosts": "*"
+}
+```
+
+### 2) Criar/Atualizar o Banco
+
+```bash
+cd api/UserMgmt.Api
+dotnet ef database update
+```
+
+### 3) CORS
+
+Garanta no `Program.cs`:
+
+```csharp
+var myCors = "_myCors";
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy(myCors, p => p
+        .WithOrigins("http://localhost:4200")
+        .AllowAnyHeader()
+        .AllowAnyMethod());
+});
+
+var app = builder.Build();
+app.UseCors(myCors);
+```
+
+### 4) Rodar a API
+
+```bash
+cd api/UserMgmt.Api
+dotnet run
+```
+
+> Anote a porta HTTP exibida (ex.: `http://localhost:5139`).  
+> **Swagger**: `http://localhost:5139/swagger`.
 
 ---
 
-## ⏱️ Prazo sugerido
-- Entrega em até **3 semanas**.  
-- Escopo mínimo: Autenticação + CRUD de usuários.  
+## Configuração do Frontend
+
+### 1) API Base URL
+
+Edite `web/src/environments/environment.ts`:
+
+```ts
+export const environment = {
+  production: false,
+  apiBaseUrl: 'http://localhost:5139' // porta da sua API
+};
+```
+
+### 2) Rodar o Angular
+
+```bash
+cd web
+npm install
+ng serve -o
+```
+
+Acesse `http://localhost:4200`.
 
 ---
 
-## 🧩 Como começar o desafio
+## Fluxo de Autenticação e CRUD
 
-1. Clique no botão **"Use this template"** no topo deste repositório.
-2. Escolha **"Create a new repository"** em sua conta pessoal do GitHub.
-3. Dê o nome que quiser ao repositório (ex: `desafio-usuarios-seu-nome`).
-4. Implemente o desafio no seu próprio repositório.
-5. Ao finalizar:
-   - Se público: envie o link do repositório por email.
-   - Se privado: adicione o usuário **vvannuchi-britech** como colaborador.
-  
+1. **Signup**  
+   - `POST /auth/signup`  
+   - Front: tela **/signup**.
+
+2. **Login**  
+   - `POST /auth/login` → retorna `{ accessToken, user }`.  
+   - Front salva `auth_token` no `localStorage`.  
+   - **Interceptor** injeta `Authorization: Bearer <token>`.
+
+3. **Listar usuários**  
+   - `GET /users/ListUsers` (Bearer obrigatório).  
+   - Tela: **/users**, exibe `createdAt`.
+
+4. **Criar usuário**  
+   - `POST /users/AddUser`.
+
+5. **Editar usuário**  
+   - `PUT /users/EditUsers/{id}`.
+
+6. **Remover usuário**  
+   - `DELETE /users/RemoveUser/{id}`.
+
+7. **Esqueci a senha / Redefinir**  
+   - `POST /auth/forgot`  (retorna `devToken`).  
+   - `POST /auth/Resetpwd` `{ token, newPassword }`.
+
+> **Swagger**: faça login, clique em **Authorize** (cadeado) e cole o Bearer para testar `/users/*`.
+
 ---
 
-Boa sorte! 🍀  
-Tente mostrar ao máximo suas habilidades !
+## Como Validar Rápido
+
+1) **/signup** → cria um usuário.  
+2) **/login** → recebe token, redireciona para **/users**.  
+3) **/users**:
+   - **Add User** → cria.
+   - **Edit** → altera e salva.
+   - **Remove** → exclui.
+4) **/forgot** → informe e-mail (retorna `devToken`).  
+5) **/reset** → token + nova senha → depois **login** com a nova senha.
+
+---
+
+## Endpoints
+
+**Auth (público)**
+- `POST /auth/signup`
+- `POST /auth/login`
+- `POST /auth/forgot`
+- `POST /auth/Resetpwd`
+
+**Users (JWT)**
+- `GET    /users/ListUsers`
+- `POST   /users/AddUser`
+- `PUT    /users/EditUsers/{id}`
+- `DELETE /users/RemoveUser/{id}`
+
+---
+
+## Notas de Implementação
+
+- **JWT**: `JwtOptions` (Issuer, Audience, Key) em `appsettings.json`. Expiração ~1h.  
+- **Senhas**: armazenadas com **hash seguro** (BCrypt).  
+- **CreatedAt**: salvo em **UTC** no backend; o Angular formata para o fuso local.  
+- **CORS**: `UseCors` antes de `UseAuthentication/UseAuthorization`.  
+- **Angular**:
+  - **Interceptor** adiciona `Authorization: Bearer`.
+  - **AuthGuard** protege `/users/*`.
+  - **styles.css** centraliza formulários e estiliza navbar/tabelas/botões.
+
+---
+
+## Comandos Úteis
+
+**Backend**
+```bash
+# rodar
+cd api/UserMgmt.Api
+dotnet run
+
+# aplicar migrations
+dotnet ef database update
+
+```
+
+**Frontend**
+```bash
+cd web
+npm install
+ng serve -o
+
+# build de produção
+ng build
+```
+
+---
+
+## 📜 Licença
+
+Uso educacional para o desafio BRITech.
